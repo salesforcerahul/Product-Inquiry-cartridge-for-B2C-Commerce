@@ -1,0 +1,10 @@
+<!--- TEMPLATENAME: SFRAResultTemplate.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true" />
+<html>
+<head></head>
+<body>
+<h1>${Resource.msg('label.input.Inquiry.submissionmsg', 'MakeInquiryProperties', null)}</h1>
+<p>${Resource.msg('label.input.Inquiry.successmsg', 'MakeInquiryProperties', null)} </p>
+<!--<p>${Resource.msg('label.input.Inquiry.yourmsg', 'MakeInquiryProperties', null)}${pdict.question}</p>-->
+</body>
+</html>

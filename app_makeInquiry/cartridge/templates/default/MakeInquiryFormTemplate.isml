@@ -1,0 +1,115 @@
+<!--- TEMPLATENAME: helloform.isml --->
+ <!--- <isscript>
+var assets = require('*/cartridge/scripts/assets.js');
+assets.addCss('/css/helloform.css');
+assets.addJs('/js/helloform.js'); </isscript>--->
+<!--- 
+<div class="hero slant-down login-banner">
+<h1>${Resource.msg('label.input.Inquiry.header', 'MakeInquiryProperties', null)}</h1>
+</div>  --->
+
+<!--- --->
+<div id="showForm" style="display:block">
+<form action="${pdict.actionUrl}" class="login" method="POST" id="SFRAForm"
+    name="SFRAhelloform" onsubmit="return validateForm()">
+             <h2 class="modal-title">Make an Inquiry </h2></br>
+             <div style="display:none"><input type="input" id="productID" value="${pdict.productID}"></div>
+             <div style="display:none"><input type="input" id="PName" value="${pdict.PName}"></div>
+    <div class="form-group required">
+        <label class="formLable"> ${Resource.msg('label.input.Inquiry.name', 'MakeInquiryProperties', null)} </label> <input type="input" id="name"
+            class="form-control" name="name" required>
+            <span id="nameError" class="error"></span>
+    </div>
+    <div class="form-group required">
+        <label class="formLable"> ${Resource.msg('label.input.Inquiry.email', 'MakeInquiryProperties', null)} </label> <input type="email" id="email"
+            class="form-control" name="email" required >
+            <span id="emailError" class="error"></span>
+    </div>
+    <div class="form-group required">
+        <label class="formLable"> ${Resource.msg('label.input.Inquiry.phone', 'MakeInquiryProperties', null)} </label> <input type="tel" id="phone"
+            class="form-control" name="phone" pattern="[0-9]{10}" required>
+            <span id="phoneError" class="error"></span>
+    </div>
+    <div class="form-group required">
+        <label class="formLable"> ${Resource.msg('label.input.Inquiry.question', 'MakeInquiryProperties', null)} </label> <textarea class="formtextarea" id="question" name="question" rows="4" cols="50"  required></textarea>    </div>
+    <span id="messageError" class="error"></span>
+    <button type="submit" class="btn btn-block btn-primary">${Resource.msg('label.input.Inquiry.submit', 'MakeInquiryProperties', null)}</button>
+
+</form>
+
+</div>
+
+<div id="showSuccess" >
+
+</div>
+
+<style>
+
+.formLable {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+.formtextarea {
+    display: block;
+    width: 100%;
+    border: 1px solid rgba(200,200,200,0.2);
+    background: rgba(200,200,200,0.2);
+    border-radius: 6px;
+    min-height: 200px;
+}
+
+
+</style>
+
+<script>
+
+document.getElementById('SFRAForm').addEventListener('submit', function (event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+             const showSuccess = document.getElementById('showSuccess');
+                const showForm = document.getElementById('showForm');
+
+
+            var formUrl ="/on/demandware.store/Sites-RefArch-Site/en_US/MakeInquiryFormResult-Show";
+
+            var formData = {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            phone: $("#phone").val(),
+            question: $("#question").val(),
+            productID:$("#productID").val(),
+            PName:$("#PName").val()
+
+        };
+
+                        $.ajax({
+                                url: formUrl,
+                                method: 'POST',
+                                data: formData,
+                                success: function(data) {
+                                    // Render the fetched ISML content in the popup container
+                                showForm.style.display = 'none';
+                               $('#showSuccess').html(data);
+                               
+                                    // Code to open the popup (you might use a popup library or custom code).
+                                    //$('.popup-container').show();
+                                    // popup.style.display = "block";
+                                },
+                                error: function(error) {
+                                    console.error('Error fetching ISML form:', error);
+                                }
+                            });
+
+
+          
+        });
+
+
+        
+    </script>
+
+</div>
